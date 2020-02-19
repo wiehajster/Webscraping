@@ -4,10 +4,6 @@ import pandas as pd
 
 class Website_level_1(Website):
     
-    def __init__(self, scraper, infos):
-        super().__init__(scraper, infos)
-    
-    
     def create_links(self,infos):
         url = 'https://nofluffjobs.com/api/search/posting?region=pl'
         urls = []
@@ -19,9 +15,6 @@ class Website_level_1(Website):
         return Website_level_2(Scraper_level_2(), self.get_results())
     
 class Website_level_2(Website):
-    
-    def __init__(self, scraper, infos):
-        super().__init__(scraper, infos)
     
     
     def create_links(self,infos):

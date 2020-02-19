@@ -6,8 +6,7 @@ class Website(ABC):
         self.links = self.create_links(infos)
         self.scraper = scraper
         self.results = []
-    
-    
+     
     def create_links(self,infos):
         pass
     

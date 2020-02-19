@@ -5,6 +5,8 @@ from Website_pracuj import Website_level_1 as Website_pracuj
 from scraper_pracuj import Scraper_level_1 as Scraper_pracuj
 from scraper_nofluffjobs import Scraper_level_1 as Scraper_nofluff
 from website_nofluffjobs import Website_level_1 as Website_nofluff
+from gratka import Gratka_Initial_Scraper
+from website_gratka import Gratka_Initial_Website
 
 tags = []
 tags.append("it")
@@ -18,11 +20,10 @@ scraper_pracuj = Scraper_pracuj()
 website_pracuj = Website_pracuj(scraper_pracuj, tags)
 scraper_nofluff = Scraper_nofluff()
 website_nofluff = Website_nofluff(scraper_nofluff, tags)
+scraper_gratka = Gratka_Initial_Scraper()
+website_gratka = Gratka_Initial_Website(scraper_gratka, tags)
 
-websites = []
-websites.append(website_pracuj)
-websites.append(website_nofluff)
-
+websites = [website_pracuj, website_nofluff, website_gratka]
 
 
 controller = Controller(websites)

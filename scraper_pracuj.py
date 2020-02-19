@@ -6,8 +6,6 @@ import pandas as pd
 
 class Scraper_level_1(Scraper):
     
-    def __init__(self):
-        super().__init__()
     
     def scrape(self, url):
         response = super().scrape(url)
@@ -19,9 +17,6 @@ class Scraper_level_1(Scraper):
         
 
 class Scraper_level_2(Scraper):
-    
-    def __init__(self):
-        super().__init__()
         
     def scrape(self, url):
         response = super().scrape(url)
