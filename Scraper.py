@@ -25,7 +25,6 @@ class Scraper(ABC):
                         to_concat = self.concat_all_strings(item[i], delim, other_types)
                 else:
                     to_concat = self.concat_all_strings(i, delim, other_types)
-                print(to_concat)
                 if len(to_concat):
                     concatenated_string += to_concat + delim
         elif other_types == False:
@@ -33,7 +32,6 @@ class Scraper(ABC):
                 return item
         else:
             return str(item)
-        print(concatenated_string[: -1])
 
         return concatenated_string[: -1]
     

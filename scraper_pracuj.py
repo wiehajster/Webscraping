@@ -73,7 +73,7 @@ class Scraper_level_2(Scraper):
             
         return final_df
         
-
+'''
 url = 'https://www.pracuj.pl/praca'
 scraper = Scraper_level_1()    
 last_page_nr = scraper.scrape(url)
@@ -92,9 +92,8 @@ for url in new_urls:
 #final_df = results 
 final_df = pd.concat(results)
 final_df.to_excel('results.xlsx', index=False)
-'''
+
 with pd.ExcelWriter('results.xlsx', engine="openpyxl", mode='a') as writer:  
 
     final_df.to_excel(writer, sheet_name='Sheet1', index = False)         
-''' 
-    
+'''

@@ -36,6 +36,9 @@ class Scraper_level_2(Scraper):
         
         
         d = ast.literal_eval(soup)
+        print(d) 
+        print('\n')
+        print('\n')
         
         keys_to_remove = ['companyUrl', 'likes', 'posted', 'status', 'consents', 'meta']
         
@@ -60,9 +63,19 @@ class Scraper_level_2(Scraper):
         
         location = d['location']
         places = location['places']
-        country = places[1]['country']
+        '''
+        print(str(places) + '\n')
+        print(str(places[0]) + '\n')
+        print(str(places[1]) + '\n')
+        '''
+        if len(places) > 1:
+            country = places[1]['country']
+            city = places[1]['city']
+        else: 
+            country = places[0]['country']
+            city = places[0]['city']
+            
         df['country'] = country['name']
-        city = places[1]['city']
         df['city'] = city
         
         essentials = d['essentials']
@@ -82,13 +95,12 @@ class Scraper_level_2(Scraper):
         items_to_remove = ['None', 'main', 'False']
         tags = self.remove_from_tags(tags, items_to_remove)
         df['tags'] = tags
-        print(tags)
         
         return df
     
     
 
-
+'''
 scraper = Scraper_level_1()
 df = scraper.scrape('https://nofluffjobs.com/api/search/posting?region=pl')
 base_url = 'https://nofluffjobs.com/api/posting/'
@@ -107,3 +119,4 @@ with pd.ExcelWriter('results.xlsx', engine="openpyxl", mode='a') as writer:
 
     d.to_excel(writer, sheet_name='Sheet1', index = False)
 #d.to_excel('results.xlsx', index = False, mode = 'a')
+'''

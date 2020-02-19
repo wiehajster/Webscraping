@@ -9,8 +9,10 @@ class Controller:
         
     def scraping(self):
         
-        while len(self.websites) > 0:
+        i = 0
+        while len(self.websites) > 0 and i <= 3:
             website = self.websites.pop(0)
+            print(type(website))
             if website.is_empty() != True:
                 website.start_scraping()
             else:
