@@ -5,7 +5,7 @@ import pandas as pd
 class Website_level_1(Website):
     
     def create_links(self,infos):
-        url = 'https://www.pracuj.pl/praca'
+        url = 'https://www.pracuj.pl/praca/it;kw'
         urls = []
         urls.append(url)
         return urls
@@ -17,7 +17,7 @@ class Website_level_2(Website):
        
     def create_links(self,infos):
         urls = []
-        base_url = 'https://www.pracuj.pl/praca/ds;kw?pn='
+        base_url = 'https://www.pracuj.pl/praca/it;kw?pn='
     
         for last_page_nr in infos:
             for i in range(1, last_page_nr + 1):

@@ -7,6 +7,8 @@ from scraper_nofluffjobs import Scraper_level_1 as Scraper_nofluff
 from website_nofluffjobs import Website_level_1 as Website_nofluff
 from gratka import Gratka_Initial_Scraper
 from website_gratka import Gratka_Initial_Website
+import pandas as pd
+from Rating import Rating
 
 tags = []
 tags.append("it")
@@ -23,8 +25,16 @@ website_nofluff = Website_nofluff(scraper_nofluff, tags)
 scraper_gratka = Gratka_Initial_Scraper()
 website_gratka = Gratka_Initial_Website(scraper_gratka, tags)
 
-websites = [website_pracuj, website_nofluff, website_gratka]
+websites = [website_pracuj]
 
 
 controller = Controller(websites)
 controller.scraping()
+'''
+tag = ['tag']
+points = [0]
+df = pd.DataFrame({'tag' : tag, 'points' : points })
+df.to_excel('tags.xlsx', index = False)
+'''
+rating = Rating()
+rating.rate()

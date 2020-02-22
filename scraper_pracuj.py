@@ -15,7 +15,7 @@ class Scraper_level_1(Scraper):
     
         last_page_nr = soup.find_all('li', class_='pagination_element-page')[-1]
         last_page_nr = int(last_page_nr.text)
-        return 2
+        return last_page_nr
         
 
 class Scraper_level_2(Scraper):
@@ -47,24 +47,28 @@ class Scraper_level_2(Scraper):
         
         df = pd.DataFrame(offers)
         
-        columns = {
+        df = df.rename(columns = {
                 'commonOfferId' : 'offerId',
                 'jobTitle' : 'title',
                 'employer' : 'company',
                 'countryName' : 'country',
                 'jobDescription' : 'description'
-                }
-        
-        
-        df = df.rename(columns = columns)
+                })
         
         cities = [offer['offers'][0]['label'] for offer in offers]
         df['city'] = cities
+        
+        base_url = 'https://www.pracuj.pl/'
+        urls = [base_url + offer['offers'][0]['offerUrl'] for offer in offers]
+        
         del df['offers']
+        
         df['website'] = 'pracuj'
-        df['url'] = url
+        
+        df['url'] = urls
+        df = df[['offerId', 'title', 'website', 'url', 'company', 'country', 'city', 'salary', 'description']]
            
-        return (d, offers,  df)
+        return df
         
 
 url = 'https://www.pracuj.pl/praca'

@@ -30,9 +30,6 @@ class Scraper_level_2(Scraper):
         
         
         d = ast.literal_eval(soup)
-        print(d) 
-        print('\n')
-        print('\n')
         
         keys_to_remove = ['companyUrl', 'likes', 'posted', 'status', 'consents', 'meta']
         
@@ -62,24 +59,29 @@ class Scraper_level_2(Scraper):
         print(str(places[0]) + '\n')
         print(str(places[1]) + '\n')
         '''
-        if len(places) > 1:
-            country = places[1]['country']
-            city = places[1]['city']
-        else: 
-            country = places[0]['country']
-            city = places[0]['city']
-            
-        df['country'] = country['name']
-        df['city'] = city
+        
+        country_name = ''
+        city_name = ''
+        
+        for place in places:
+            if 'country' in place:
+                country = place['country']
+                country_name = country_name + country['name'] + ', '
+            if 'city' in place:
+                city_name = city_name + place['city'] + ', ' 
+        
+        df['country'] = re.sub(',\s+$','',country_name)
+        
+        df['city'] = re.sub(',\s+$','',city_name)
         
         essentials = d['essentials']
-        salary = essentials['salary']
-        salary = salary['types']
+        salary = essentials['salary']['types']
+        
         s = ''
-        for i in salary:
-            s = s + i + '|'
-            s = s + self.concat_all_strings(salary[i], '|', True) + '|'
-        df['salary'] = s[:-1]
+        for k, v in salary.items():
+            s = s + k + ': ' + str(v['range']) + ', '
+        
+        df['salary'] = s[:-2]
         
         seo = d['seo']
         df['description'] = [seo['description']]
@@ -109,6 +111,7 @@ for index, row in df.iterrows():
 
 scraper = Scraper_level_2()
 d = scraper.scrape('https://nofluffjobs.com/api/posting/RACTYDZA?city=remote&region=pl')
+
 with pd.ExcelWriter('results.xlsx', engine="openpyxl", mode='a') as writer:  
 
     d.to_excel(writer, sheet_name='Sheet1', index = False)
